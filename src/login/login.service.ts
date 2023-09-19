@@ -26,6 +26,11 @@ export class LoginService {
     ]
     public user: UserDTO;
 
+    getAll()
+    {
+        return this.users;
+    }
+
     findByUsername(username: string){
         return this.users.find((p)=>p.username === username);
     }

@@ -6,7 +6,12 @@ import { LoginService } from './login.service';
 export class LoginController {
     constructor(private loginService: LoginService) {}
 
-    @Get(':username')
+  @Get()
+  getAllUser(){
+    return this.loginService.getAll();
+  }
+
+  @Get(':username')
   findUserById(@Param('username') username: string) {
     return this.loginService.findByUsername(String(username));
   }
