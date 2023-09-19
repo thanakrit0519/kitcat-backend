@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { UserDTO } from 'src/dto/user.dto';
 
 @Injectable()
-export class RegisterService {
+export class LoginService {
     private users: UserDTO[] = [
         {
             id: 1,
@@ -22,24 +22,19 @@ export class RegisterService {
             username: "c",
             nickname: "C",
             password: "cc"
-        }
+        }  
     ]
+    public user: UserDTO;
 
-    getAll(){
-        return this.users;
+    findByUsername(username: string){
+        return this.users.find((p)=>p.username === username);
     }
-
-    findById(id: number){
-        return this.users.find((p)=>p.id === id);
-    }
-
-    addUser(username: string,nickname: string,password: string){
-        this.users.push({
-            id: this.users[this.users.length - 1].id + 1,
-            username: username,
-            nickname: nickname,
-            password: password
-        });
-        return "Succeed";
+    
+    userLogin(username: string,password: string){
+        this.user = this.findByUsername(username)
+        if(this.user === undefined) return  "User not found";
+        if(password === this.user.password)
+            return "Succeed";
+        else return "Fail";
     }
 }
